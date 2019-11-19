@@ -9,9 +9,26 @@ const double K = 100;
 const double M = 2;
 const double LAMBDA = 1;
 const double DeltaT = 0.01;
+double gam;
 
 int main(int argc, char **argv){
-    int T = atoi(argv[1]);
+    int input = atoi(argv[1]);
+    if(input == 0){
+        gam = 0.0;
+    }
+    else if(input == 1){
+        gam = 0.1;
+    }
+    else if( input == 2){
+        gam = 0.5;
+    }
+    else if(input==3){
+        gam = 0.7;
+    }
+    else{
+        gam = 0.9;
+    }
+    int T = 10;
     double x, v, time;
     x = 1;
     v = 0;
@@ -31,7 +48,7 @@ double f0(double t, double y0, double y1)
 
 double f1(double t, double y0, double y1)
 {
-  return (-K/M)*pow(y0, LAMBDA);
+  return (-K/M)*pow(y0, LAMBDA)- y1*gam/M;
 }
 
 void rk4(double t, double h, double & y0, double & y1) // metodo de runge kutta 4 orden
